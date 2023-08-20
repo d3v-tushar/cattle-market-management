@@ -10,7 +10,11 @@
     "prettier:check": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "Prettier:fix": "prettier --write .",
     "lint-prettier": "yarn lint:check && yarn prettier:check",
+    "postinstall": "husky install",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "lint-staged": {
+    "src/**/*.ts": "yarn lint-prettier"
   },
   "repository": {
     "type": "git",
