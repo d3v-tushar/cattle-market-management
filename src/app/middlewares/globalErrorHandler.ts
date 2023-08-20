@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ErrorRequestHandler } from 'express';
 import handleValidationError from '../../errors/handleValidationError';
 import ApiError from '../../errors/ApiError';
 import config from '../../config';
+import { IGenericErrorMessage } from '../../interfaces/error';
 
 const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
   config.env === 'development'

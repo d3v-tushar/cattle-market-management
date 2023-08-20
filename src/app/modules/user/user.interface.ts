@@ -1,4 +1,4 @@
-import { Model } from "mongoose";
+import { Model } from 'mongoose';
 
 type UserName = {
   firstName: string;
@@ -7,7 +7,7 @@ type UserName = {
 
 export type IUser = {
   password: string;
-  role: "seller" | "buyer";
+  role: 'seller' | 'buyer';
   name: UserName;
   phoneNumber: string;
   address: string;
@@ -15,4 +15,4 @@ export type IUser = {
   income: number;
 };
 
-export type UserModel = Model<IUser, {}>;
+export type UserModel = Model<IUser, Record<string, never>>;
