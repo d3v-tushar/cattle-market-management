@@ -15,4 +15,4 @@ export type IUser = {
   income: number;
 };
 
-export type UserModel = Model<IUser, Record<string, never>>;
+export type UserModel = Model<IUser, Record<string, unknown>>;

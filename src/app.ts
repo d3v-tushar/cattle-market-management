@@ -14,7 +14,7 @@ app.use(express.json()); //Parser
 app.use(express.urlencoded({ extended: true })); //Parser
 
 //Application Routes
-app.use('/api/v1/', routes);
+app.use('/api/v1', routes);
 
 //Testing Route
 app.get('/', async (req, res, next) => {
