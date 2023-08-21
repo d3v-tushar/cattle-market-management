@@ -15,12 +15,12 @@ const createUser = async (userData: IUser): Promise<IUser> => {
   return result;
 };
 
-const getAllUsers = async () => {
+const getAllUsers = async (): Promise<IUser[]> => {
   const result = await User.find();
   return result;
 };
 
-const getSingleUser = async (id: string) => {
+const getSingleUser = async (id: string): Promise<IUser> => {
   const result = await User.findById(id);
   if (!result) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User Not Found');
@@ -54,9 +54,15 @@ const updateUser = async (
   return result;
 };
 
+const deleteUser = async (id: string): Promise<IUser | null> => {
+  const result = await User.findByIdAndDelete(id);
+  return result;
+};
+
 export const UserService = {
   createUser,
   getAllUsers,
   getSingleUser,
   updateUser,
+  deleteUser,
 };
