@@ -1,0 +1,45 @@
+import { Model, Types } from 'mongoose';
+
+type Location =
+  | 'Dhaka'
+  | 'Chattogram'
+  | 'Barishal'
+  | 'Rajshahi'
+  | 'Sylhet'
+  | 'Comilla'
+  | 'Rangpur'
+  | 'Mymensingh';
+
+type Breed =
+  | 'Brahman'
+  | 'Nellore'
+  | 'Sahiwal'
+  | 'Gir'
+  | 'Indigenous'
+  | 'Tharparkar'
+  | 'Kankrej';
+
+enum Label {
+  ForSell = 'for-sale',
+  SoldOut = 'sold out',
+}
+
+enum Category {
+  Dairy = 'Dairy',
+  Beef = 'Beef',
+  DualPurpose = 'Dual Purpose',
+}
+
+export type ICow = {
+  name: string;
+  age: number;
+  price: number;
+  location: Location;
+  breed: Breed;
+  weight: number;
+  label: Label;
+  category: Category;
+  seller: Types.ObjectId;
+};
+
+export type CowModel = Model<ICow, Record<string, never>>;
