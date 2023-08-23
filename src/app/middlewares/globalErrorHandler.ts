@@ -10,7 +10,7 @@ import handleCastError from '../../errors/handleCastError';
 import { errorLogger } from '../../shared/logger';
 
 const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
-  config.env === 'development'
+  config.env !== 'development'
     ? errorLogger.error(`globalErrorHandler ~ ${error}`)
     : console.log(`globalErrorHandler ~ ${error}`);
   let statusCode = 500;

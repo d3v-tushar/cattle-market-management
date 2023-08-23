@@ -21,7 +21,7 @@ const breed: string[] = [
 
 const category: string[] = ['Dairy', 'Beef', 'Dual Purpose'];
 
-const label: string[] = ['for-sale', 'sold out'];
+const label: string[] = ['for sale', 'sold out'];
 
 export const CowConstant = {
   location,

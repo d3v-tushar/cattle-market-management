@@ -19,12 +19,9 @@ type Breed =
   | 'Tharparkar'
   | 'Kankrej';
 
-enum Label {
-  ForSell = 'for-sale',
-  SoldOut = 'sold out',
-}
+type Label = 'for sale' | 'sold out';
 
-enum Category {
+export enum Category {
   Dairy = 'Dairy',
   Beef = 'Beef',
   DualPurpose = 'Dual Purpose',
