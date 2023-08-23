@@ -2,10 +2,15 @@ import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
 import { ICow } from './cow.interface';
 import { Cow } from './cow.model';
+import { User } from '../user/user.model';
 
 const createCow = async (payload: Partial<ICow>): Promise<ICow> => {
   if (!payload.label) {
     payload.label = 'for sale';
+  }
+  const seller = await User.findById(payload.seller);
+  if (!seller) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Seller Not Found!');
   }
   const result = (await Cow.create(payload)).populate('seller');
   return result;
