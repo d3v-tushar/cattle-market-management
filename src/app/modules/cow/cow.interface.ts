@@ -40,7 +40,7 @@ export type ICow = {
 };
 
 export type ICowFilters = {
-  searchTerm?: string;
+  query?: string;
   minPrice?: number;
   maxPrice?: number;
   location?: Location;

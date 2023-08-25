@@ -16,7 +16,7 @@ export type IUser = {
 };
 
 export type IUserFilters = {
-  searchTerm?: string;
+  query?: string;
   phoneNumber?: string;
   minBudget?: number;
   maxBudget?: number;

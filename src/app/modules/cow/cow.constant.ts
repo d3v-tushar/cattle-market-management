@@ -24,7 +24,7 @@ const category: string[] = ['Dairy', 'Beef', 'Dual Purpose'];
 const label: string[] = ['for sale', 'sold out'];
 
 const cowFilterableFields = [
-  'searchTerm',
+  'query',
   'minPrice',
   'maxPrice',
   'location',

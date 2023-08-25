@@ -9,8 +9,8 @@ const createUser = catchAsync(async (req: Request, res: Response) => {
   const { ...userData } = req.body;
   const result = await AuthService.createUser(userData);
   sendResponse<IUser>(res, {
-    statusCode: httpStatus.OK,
     success: true,
+    statusCode: httpStatus.OK,
     message: 'User Created Successfully',
     data: result,
   });

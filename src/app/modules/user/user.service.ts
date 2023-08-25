@@ -24,18 +24,18 @@ const getAllUsers = async (
   filters: IUserFilters,
   paginationOptions: IPaginationOptions,
 ): Promise<IGenericResponse<IUser[]>> => {
-  const { searchTerm, minBudget, maxBudget, ...filterdData } = filters;
+  const { query, minBudget, maxBudget, ...filterdData } = filters;
   const { page, limit, skip, sortBy, sortOrder } =
     paginationHelpers.calculatePagination(paginationOptions);
 
   const andCondition = [];
   const sortCondition: { [key: string]: SortOrder } = {};
 
-  if (searchTerm) {
+  if (query) {
     andCondition.push({
       $or: UserConstant.userSearchableFields.map(field => ({
         [field]: {
-          $regex: searchTerm,
+          $regex: query,
           $options: 'i',
         },
       })),
