@@ -1,8 +1,13 @@
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
-import { ICow } from './cow.interface';
+import { ICow, ICowFilters } from './cow.interface';
 import { Cow } from './cow.model';
 import { User } from '../user/user.model';
+import { IPaginationOptions } from '../../../interfaces/pagination';
+import { paginationHelpers } from '../../../helpers/paginationHelper';
+import { CowConstant } from './cow.constant';
+import { SortOrder } from 'mongoose';
+import { IGenericResponse } from '../../../interfaces/common';
 
 const createCow = async (payload: Partial<ICow>): Promise<ICow> => {
   if (!payload.label) {
@@ -16,9 +21,72 @@ const createCow = async (payload: Partial<ICow>): Promise<ICow> => {
   return result;
 };
 
-const getAllCows = async (): Promise<ICow[]> => {
-  const result = await Cow.find().populate('seller');
-  return result;
+const getAllCows = async (
+  filters: ICowFilters,
+  paginationOptions: IPaginationOptions,
+): Promise<IGenericResponse<ICow[]>> => {
+  const { searchTerm, minPrice, maxPrice, ...filterdData } = filters;
+  const { page, limit, skip, sortBy, sortOrder } =
+    paginationHelpers.calculatePagination(paginationOptions);
+  const andConditions = [];
+  const sortCondition: { [key: string]: SortOrder } = {};
+
+  if (searchTerm) {
+    andConditions.push({
+      $or: CowConstant.cowSearchableFields.map(field => ({
+        [field]: {
+          $regex: searchTerm,
+          $options: 'i',
+        },
+      })),
+    });
+  }
+
+  if (Object.keys(filterdData).length) {
+    andConditions.push({
+      $and: Object.entries(filterdData).map(([field, value]) => ({
+        [field]: value,
+      })),
+    });
+  }
+
+  if (sortBy && sortOrder) {
+    sortCondition[sortBy] = sortOrder;
+  }
+
+  if (minPrice !== undefined) {
+    andConditions.push({ price: { minPrice } });
+  }
+
+  if (maxPrice !== undefined) {
+    andConditions.push({ price: { $lte: maxPrice } });
+  }
+
+  //query example
+  // const query = {
+  //   $and: [
+  //     { $or: [{ category: { $regex: 'beef', $options: 'i' } }] },
+  //     { $and: [{ location: 'Sylhet' }, { breed: 'Indigenous' }] },
+  //     { price: { $gte: 115000 } },
+  //   ],
+  // };
+
+  const whereCondition = andConditions.length ? { $and: andConditions } : {};
+  const result = await Cow.find(whereCondition)
+    .populate('seller')
+    .sort(sortCondition)
+    .skip(skip)
+    .limit(limit);
+
+  const total = await Cow.countDocuments(whereCondition);
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: result,
+  };
 };
 
 const getSingleCow = async (id: string): Promise<ICow | null> => {

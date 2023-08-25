@@ -1,6 +1,8 @@
 import { Schema, model } from 'mongoose';
 import { IUser, UserModel } from './user.interface';
 import { UserConstant } from './user.constant';
+import ApiError from '../../../errors/ApiError';
+import httpStatus from 'http-status';
 
 const userSchema = new Schema<IUser, UserModel>(
   {
@@ -25,5 +27,26 @@ const userSchema = new Schema<IUser, UserModel>(
     },
   },
 );
+
+//Handle Duplicate Entry (User)
+userSchema.pre('save', async function (next) {
+  const isExist = await User.findOne({
+    $or: [
+      { phoneNumber: this.phoneNumber },
+      {
+        'name.firstName': this.name.firstName,
+        'name.lastName': this.name.lastName,
+      },
+    ],
+  });
+  if (isExist) {
+    throw new ApiError(
+      httpStatus.CONFLICT,
+      'User With Same Name Or Phone Number Already Exist!',
+    );
+  } else {
+    next();
+  }
+});
 
 export const User = model<IUser, UserModel>('User', userSchema);

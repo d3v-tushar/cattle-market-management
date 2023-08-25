@@ -39,4 +39,11 @@ export type ICow = {
   seller: Types.ObjectId;
 };
 
+export type ICowFilters = {
+  searchTerm?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  location?: Location;
+};
+
 export type CowModel = Model<ICow, Record<string, never>>;
