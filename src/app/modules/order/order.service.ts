@@ -3,8 +3,11 @@ import ApiError from '../../../errors/ApiError';
 import { Cow } from '../cow/cow.model';
 import { IOrder } from './order.interface';
 import { User } from '../user/user.model';
-import mongoose from 'mongoose';
+import mongoose, { SortOrder } from 'mongoose';
 import { Order } from './order.model';
+import { IPaginationOptions } from '../../../interfaces/pagination';
+import { paginationHelpers } from '../../../helpers/paginationHelper';
+import { IGenericResponse } from '../../../interfaces/common';
 
 const createOrder = async (payload: Partial<IOrder>): Promise<IOrder> => {
   const { cow: cowId, buyer: buyerId } = payload;
@@ -71,12 +74,30 @@ const createOrder = async (payload: Partial<IOrder>): Promise<IOrder> => {
   return result;
 };
 
-const getAllOrders = async (): Promise<IOrder[]> => {
-  const result = await Order.find().populate([
-    { path: 'cow', populate: ['seller'] },
-    { path: 'buyer' },
-  ]);
-  return result;
+const getAllOrders = async (
+  paginationOptions: IPaginationOptions,
+): Promise<IGenericResponse<IOrder[]>> => {
+  const { page, limit, skip, sortBy, sortOrder } =
+    paginationHelpers.calculatePagination(paginationOptions);
+  const sortCondition: { [key: string]: SortOrder } = {};
+
+  if (sortBy && sortOrder) {
+    sortCondition[sortBy] = sortOrder;
+  }
+  const result = await Order.find()
+    .populate([{ path: 'cow', populate: ['seller'] }, { path: 'buyer' }])
+    .sort(sortCondition)
+    .skip(skip)
+    .limit(limit);
+  const total = await Order.countDocuments();
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: result,
+  };
 };
 
 export const OrderService = {

@@ -15,4 +15,11 @@ export type IUser = {
   income: number;
 };
 
+export type IUserFilters = {
+  searchTerm?: string;
+  phoneNumber?: string;
+  minBudget?: number;
+  maxBudget?: number;
+};
+
 export type UserModel = Model<IUser, Record<string, unknown>>;

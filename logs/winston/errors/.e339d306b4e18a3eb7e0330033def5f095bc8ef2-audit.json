@@ -84,6 +84,16 @@
             "date": 1692940269320,
             "name": "logs\\winston\\errors\\DCH-2023-08-25-11-error.log",
             "hash": "5eee4b86be319919dad7b44b4bbbea5281f051b45cd8a8c3d1a48511d09206cb"
+        },
+        {
+            "date": 1692943473866,
+            "name": "logs\\winston\\errors\\DCH-2023-08-25-12-error.log",
+            "hash": "cf039ddd1ff882b5d85a82bf1d21cda8479e557ed73042c685b3010f465fc5c7"
+        },
+        {
+            "date": 1692946834587,
+            "name": "logs\\winston\\errors\\DCH-2023-08-25-13-error.log",
+            "hash": "2e5b08aa14195485aec089372bdf5ac2273ccda67a058bb5374f17283beb590c"
         }
     ],
     "hashType": "sha256"

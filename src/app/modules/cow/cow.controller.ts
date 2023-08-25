@@ -38,7 +38,7 @@ const getSingleCow = catchAsync(async (req: Request, res: Response) => {
   sendResponse<ICow>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Cow retrieved successfully',
+    message: 'Cow Retrieved Successfully',
     data: result,
   });
 });
@@ -50,7 +50,7 @@ const updateCow = catchAsync(async (req: Request, res: Response) => {
   sendResponse<ICow>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Cow updated successfully',
+    message: 'Cow Updated Successfully',
     data: result,
   });
 });
@@ -61,7 +61,7 @@ const deleteCow = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Cow deleted successfully',
+    message: 'Cow Deleted Successfully',
     data: result,
   });
 });
