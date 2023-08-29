@@ -14,8 +14,8 @@ const createUser = catchAsync(
     const result = await UserService.createUser(userData);
 
     sendResponse<IUser>(res, {
-      statusCode: 200,
       success: true,
+      statusCode: 200,
       message: 'User Created Successfully',
       data: result,
     });
@@ -27,8 +27,8 @@ const getAllUsers = catchAsync(async (req: Request, res: Response) => {
   const paginationOptions = pick(req.query, paginationFields);
   const result = await UserService.getAllUsers(filters, paginationOptions);
   sendResponse<IUser[]>(res, {
-    statusCode: httpStatus.OK,
     success: true,
+    statusCode: httpStatus.OK,
     message: 'Users Retrieved Successfully',
     meta: result.meta,
     data: result.data,
@@ -40,8 +40,8 @@ const getSingleUser = catchAsync(async (req: Request, res: Response) => {
   const result = await UserService.getSingleUser(id);
 
   sendResponse<IUser>(res, {
-    statusCode: httpStatus.OK,
     success: true,
+    statusCode: httpStatus.OK,
     message: 'User Retrieved Successfully',
     data: result,
   });
@@ -52,8 +52,8 @@ const updateUser = catchAsync(async (req: Request, res: Response) => {
   const { ...updatedUserData } = req.body;
   const result = await UserService.updateUser(id, updatedUserData);
   sendResponse<IUser>(res, {
-    statusCode: httpStatus.OK,
     success: true,
+    statusCode: httpStatus.OK,
     message: 'User Updated Successfully',
     data: result,
   });
@@ -63,8 +63,8 @@ const deleteUser = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = await UserService.deleteUser(id);
   sendResponse<IUser>(res, {
-    statusCode: httpStatus.OK,
     success: true,
+    statusCode: httpStatus.OK,
     message: 'User Deleted Successfully',
     data: result,
   });

@@ -1,7 +1,7 @@
 const role: string[] = ['seller', 'buyer'];
 
 const userFilterableFields: string[] = [
-  'searchTerm',
+  'query',
   'phoneNumber',
   'role',
   'minBudget',

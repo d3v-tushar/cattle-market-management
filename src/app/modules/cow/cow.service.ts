@@ -16,6 +16,8 @@ const createCow = async (payload: Partial<ICow>): Promise<ICow> => {
   const seller = await User.findById(payload.seller);
   if (!seller) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Seller Not Found!');
+  } else if (seller.role !== 'seller') {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Not A Valid Seller!');
   }
   const result = (await Cow.create(payload)).populate('seller');
   return result;
@@ -25,17 +27,17 @@ const getAllCows = async (
   filters: ICowFilters,
   paginationOptions: IPaginationOptions,
 ): Promise<IGenericResponse<ICow[]>> => {
-  const { searchTerm, minPrice, maxPrice, ...filterdData } = filters;
+  const { query, minPrice, maxPrice, ...filterdData } = filters;
   const { page, limit, skip, sortBy, sortOrder } =
     paginationHelpers.calculatePagination(paginationOptions);
   const andConditions = [];
   const sortCondition: { [key: string]: SortOrder } = {};
 
-  if (searchTerm) {
+  if (query) {
     andConditions.push({
       $or: CowConstant.cowSearchableFields.map(field => ({
         [field]: {
-          $regex: searchTerm,
+          $regex: query,
           $options: 'i',
         },
       })),
@@ -45,7 +47,7 @@ const getAllCows = async (
   if (Object.keys(filterdData).length) {
     andConditions.push({
       $and: Object.entries(filterdData).map(([field, value]) => ({
-        [field]: value,
+        [field]: value[0].toUpperCase() + value.slice(1),
       })),
     });
   }
@@ -55,7 +57,7 @@ const getAllCows = async (
   }
 
   if (minPrice !== undefined) {
-    andConditions.push({ price: { minPrice } });
+    andConditions.push({ price: { $gte: minPrice } });
   }
 
   if (maxPrice !== undefined) {
@@ -101,6 +103,15 @@ const updateCow = async (
   const isExist = await Cow.findById(id);
   if (!isExist) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Cow Not Found!');
+  }
+  if (payload.seller && payload.seller) {
+    const isSeller = await User.findOne({
+      _id: payload.seller,
+      role: 'seller',
+    });
+    if (!isSeller) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'Not A Valid Seller!');
+    }
   }
   const result = await Cow.findByIdAndUpdate(id, payload, {
     new: true,
