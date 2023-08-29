@@ -3,7 +3,7 @@ import { UserConstant } from './user.constant';
 
 const createUserZodSchema = z.object({
   body: z.object({
-    password: z.string({ required_error: 'Password is required' }),
+    password: z.string().optional(),
     role: z.enum([...UserConstant.role] as [string, ...string[]], {
       required_error: 'Role is required',
     }),

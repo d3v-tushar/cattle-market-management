@@ -6,16 +6,6 @@
     "auditLog": "logs\\winston\\errors\\.e339d306b4e18a3eb7e0330033def5f095bc8ef2-audit.json",
     "files": [
         {
-            "date": 1692579432953,
-            "name": "logs\\winston\\errors\\DCH-2023-08-21-06-error.log",
-            "hash": "eab608d66e03263e230aba576cf5ab7d6852e3565799f99833d5208ff3c42162"
-        },
-        {
-            "date": 1692579745331,
-            "name": "logs\\winston\\errors\\DCH-2023-08-21-07-error.log",
-            "hash": "a66ff296deab84fae5c858263ca324f1ada8369a324effe0af0588f14ea6e64e"
-        },
-        {
             "date": 1692755996310,
             "name": "logs\\winston\\errors\\DCH-2023-08-23-07-error.log",
             "hash": "ed1277512bb62adc3b62dce820bed9e63dd5f6d3f6a2d2bd7b8cb1f08462a14c"
@@ -59,6 +49,51 @@
             "date": 1692812768580,
             "name": "logs\\winston\\errors\\DCH-2023-08-23-23-error.log",
             "hash": "a8d004eddce44b64b9fd361effe1fccd8173cd5d054048080e2837a47e7d42d1"
+        },
+        {
+            "date": 1692850410272,
+            "name": "logs\\winston\\errors\\DCH-2023-08-24-10-error.log",
+            "hash": "39d692727da4084264ba373f37258a3fdd8bdd91c1ffd0c2679b7b1106f10594"
+        },
+        {
+            "date": 1693262242359,
+            "name": "logs\\winston\\errors\\DCH-2023-08-29-04-error.log",
+            "hash": "fecf2a610cf4bee91eb10277e2c7477304e60301b8da9d4179c119c260bdb940"
+        },
+        {
+            "date": 1693263925181,
+            "name": "logs\\winston\\errors\\DCH-2023-08-29-05-error.log",
+            "hash": "0a02641ad0721a238578c8254194c68462adc8ce1a366cf0e2b47ba96af5272d"
+        },
+        {
+            "date": 1693267383177,
+            "name": "logs\\winston\\errors\\DCH-2023-08-29-06-error.log",
+            "hash": "850837da2cdc46c49861aa26845ce3a1a876753ba43564632fddee17b2831b80"
+        },
+        {
+            "date": 1693282877343,
+            "name": "logs\\winston\\errors\\DCH-2023-08-29-10-error.log",
+            "hash": "17ce5dad02d0d8a8e4606dc55b22fcb94180016641929ad232b4c7c5379883c2"
+        },
+        {
+            "date": 1693285656455,
+            "name": "logs\\winston\\errors\\DCH-2023-08-29-11-error.log",
+            "hash": "8083585a5dca993190dc695b959d1b308f924a02e21eb13b4f76116b7ea9a6de"
+        },
+        {
+            "date": 1692940269320,
+            "name": "logs\\winston\\errors\\DCH-2023-08-25-11-error.log",
+            "hash": "5eee4b86be319919dad7b44b4bbbea5281f051b45cd8a8c3d1a48511d09206cb"
+        },
+        {
+            "date": 1692943473866,
+            "name": "logs\\winston\\errors\\DCH-2023-08-25-12-error.log",
+            "hash": "cf039ddd1ff882b5d85a82bf1d21cda8479e557ed73042c685b3010f465fc5c7"
+        },
+        {
+            "date": 1692946834587,
+            "name": "logs\\winston\\errors\\DCH-2023-08-25-13-error.log",
+            "hash": "2e5b08aa14195485aec089372bdf5ac2273ccda67a058bb5374f17283beb590c"
         }
     ],
     "hashType": "sha256"

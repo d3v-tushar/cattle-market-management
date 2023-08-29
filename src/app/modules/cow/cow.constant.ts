@@ -23,9 +23,27 @@ const category: string[] = ['Dairy', 'Beef', 'Dual Purpose'];
 
 const label: string[] = ['for sale', 'sold out'];
 
+const cowFilterableFields = [
+  'searchTerm',
+  'minPrice',
+  'maxPrice',
+  'location',
+  'breed',
+];
+
+const cowSearchableFields: string[] = [
+  'name',
+  'breed',
+  'location',
+  'label',
+  'category',
+];
+
 export const CowConstant = {
   location,
   breed,
   label,
   category,
+  cowFilterableFields,
+  cowSearchableFields,
 };

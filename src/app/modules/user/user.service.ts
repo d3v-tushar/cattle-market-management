@@ -1,8 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { SortOrder } from 'mongoose';
 import ApiError from '../../../errors/ApiError';
-import { IUser } from './user.interface';
+import { paginationHelpers } from '../../../helpers/paginationHelper';
+import { IPaginationOptions } from '../../../interfaces/pagination';
+import { IUser, IUserFilters } from './user.interface';
 import { User } from './user.model';
 import httpStatus from 'http-status';
+import { UserConstant } from './user.constant';
+import { IGenericResponse } from '../../../interfaces/common';
 
 const createUser = async (userData: IUser): Promise<IUser> => {
   if (userData.role === 'buyer') {
@@ -15,9 +20,63 @@ const createUser = async (userData: IUser): Promise<IUser> => {
   return result;
 };
 
-const getAllUsers = async (): Promise<IUser[]> => {
-  const result = await User.find();
-  return result;
+const getAllUsers = async (
+  filters: IUserFilters,
+  paginationOptions: IPaginationOptions,
+): Promise<IGenericResponse<IUser[]>> => {
+  const { searchTerm, minBudget, maxBudget, ...filterdData } = filters;
+  const { page, limit, skip, sortBy, sortOrder } =
+    paginationHelpers.calculatePagination(paginationOptions);
+
+  const andCondition = [];
+  const sortCondition: { [key: string]: SortOrder } = {};
+
+  if (searchTerm) {
+    andCondition.push({
+      $or: UserConstant.userSearchableFields.map(field => ({
+        [field]: {
+          $regex: searchTerm,
+          $options: 'i',
+        },
+      })),
+    });
+  }
+
+  if (Object.keys(filterdData).length) {
+    andCondition.push({
+      $and: Object.entries(filterdData).map(([field, value]) => ({
+        [field]: value,
+      })),
+    });
+  }
+
+  if (minBudget !== undefined) {
+    andCondition.push({ budget: { $gte: minBudget } });
+  }
+
+  if (maxBudget !== undefined) {
+    andCondition.push({ budget: { $lte: maxBudget } });
+  }
+
+  if (sortBy && sortOrder) {
+    sortCondition[sortBy] = sortOrder;
+  }
+
+  const whereCondition = andCondition.length ? { $and: andCondition } : {};
+  const result = await User.find(whereCondition)
+    .sort(sortCondition)
+    .skip(skip)
+    .limit(limit);
+  const total = await User.countDocuments(whereCondition);
+
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: result,
+  };
 };
 
 const getSingleUser = async (id: string): Promise<IUser> => {

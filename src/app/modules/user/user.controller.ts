@@ -4,6 +4,9 @@ import { UserService } from './user.service';
 import sendResponse from '../../../shared/sendResponse';
 import { IUser } from './user.interface';
 import httpStatus from 'http-status';
+import pick from '../../../shared/pick';
+import { UserConstant } from './user.constant';
+import { paginationFields } from '../../constants/pagination';
 
 const createUser = catchAsync(
   async (req: Request, res: Response): Promise<void> => {
@@ -20,12 +23,15 @@ const createUser = catchAsync(
 );
 
 const getAllUsers = catchAsync(async (req: Request, res: Response) => {
-  const result = await UserService.getAllUsers();
+  const filters = pick(req.query, UserConstant.userFilterableFields);
+  const paginationOptions = pick(req.query, paginationFields);
+  const result = await UserService.getAllUsers(filters, paginationOptions);
   sendResponse<IUser[]>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Users Retrieved Successfully',
-    data: result,
+    meta: result.meta,
+    data: result.data,
   });
 });
 
