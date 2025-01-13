@@ -1,4 +1,4 @@
-# Digital Cow Hut Backend Assignment
+# Digital Cow Hut Backend
 
 ### Live Link: https://example.com
 
