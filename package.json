@@ -29,9 +29,9 @@
   "author": "Md. Mohsin Ahmed",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/d3v-tushar/Next-level-Assignment-3/issues"
+    "url": "https://github.com/d3v-tushar/cattle-market-management/issues"
   },
-  "homepage": "https://github.com/d3v-tushar/Next-level-Assignment-3#readme",
+  "homepage": "https://github.com/d3v-tushar/cattle-market-management#readme",
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
