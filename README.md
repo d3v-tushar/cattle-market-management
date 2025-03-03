@@ -1,6 +1,4 @@
-# Digital Cow Hut Backend
-
-### Live Link: https://example.com
+# Cattle Market Management Service
 
 ### Application Routes:
 
