@@ -1,7 +1,7 @@
 {
-  "name": "assignment-3",
+  "name": "cattle-runner",
   "version": "1.0.0",
-  "description": "Online Cow Selling Backend for Eid Ul Adha",
+  "description": "Cattle Market Management Service",
   "main": "src/server.ts",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/d3v-tushar/Next-level-Assignment-3.git"
+    "url": "git+https://github.com/d3v-tushar/cattle-market-management"
   },
   "keywords": [
     "error-handling",
